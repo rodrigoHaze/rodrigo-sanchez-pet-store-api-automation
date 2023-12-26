@@ -79,3 +79,7 @@ export function cleanErrorMessage(error: string) {
   // Join the cleaned lines back into a single string
   return filteredLines.join("\n");
 }
+
+function getArrayAsString(array: string[]) {
+  return array.join("\n");
+}

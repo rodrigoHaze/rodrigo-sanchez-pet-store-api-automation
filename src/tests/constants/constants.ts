@@ -98,6 +98,34 @@ const MAIN_LINKS_AND_IDS = {
     selectorContainer: { byId: {}, byName: {}, byType: {} },
   },
 };
+const BLOCKS = [
+  {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: "¡Hola, este es un mensaje *interactivo*!",
+    },
+  },
+  {
+    type: "image",
+    image_url: "https://www.ejemplo.com/imagen.jpg",
+    alt_text: "Imagen descriptiva",
+  },
+  {
+    type: "actions",
+    elements: [
+      {
+        type: "button",
+        text: {
+          type: "plain_text",
+          text: "Click Me!",
+        },
+        value: "click_me_123",
+        action_id: "button_click",
+      },
+    ],
+  },
+];
 
 const EXCEL_HEADERS: string[] = [
   "id",
@@ -118,4 +146,5 @@ export default {
   MAIN_LINKS_AND_IDS,
   EXCEL_HEADERS,
   EXCEL_FILE_NAME,
+  BLOCKS,
 };

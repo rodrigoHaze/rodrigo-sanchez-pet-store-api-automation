@@ -3,7 +3,18 @@ import { addRowExcel, cleanErrorMessage, createExcel } from "../utils/utils";
 import constants from "../tests/constants/constants";
 import { basePage } from "./basepage";
 import { Browser, Page, chromium } from "@playwright/test";
-BeforeAll(async function () {
+import {
+  sendMessage,
+  sendMessageByWebhook,
+  uploadFile,
+} from "../utils/SlackIntegration";
+BeforeAll({ timeout: 100000 }, async function () {
+  await uploadFile(
+    "#istqb",
+    "ExcelReport.xlsx",
+    "ExcelReport.xlsx",
+    "Past Iteration"
+  );
   await createExcel(constants.EXCEL_HEADERS, constants.EXCEL_FILE_NAME);
   try {
     browser = await chromium.launch({
@@ -34,6 +45,7 @@ After(async function (scenario: any) {
   const tags = scenario.pickle.tags.map((tag: any) => {
     return tag.name;
   });
+
   let failure;
   if (scenario.result.status === "FAILED") {
     failure = cleanErrorMessage(scenario.result.message);
@@ -45,8 +57,8 @@ After(async function (scenario: any) {
     featureName: scenario.gherkinDocument.feature.name,
     name: scenario.pickle.name,
     uri: scenario.pickle.uri,
-    tags: tags,
-    steps: steps,
+    tags: tags.join("\n"),
+    steps: steps.join("\n"),
     status: scenario.result.status,
     duration: scenario.result.duration.nanos,
     retried: scenario.willBeRetried,

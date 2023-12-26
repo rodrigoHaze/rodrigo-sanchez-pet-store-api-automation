@@ -3,6 +3,7 @@ import { BasicBehavior } from "../../utils/utils";
 import constants from "../constants/constants";
 ////1) Scenario:  CONTACT US Form # src/tests/features/webDriverUniversity.feature:4
 const behavior = new BasicBehavior();
+
 Given("the user opens the CONTACT US form", async function () {
   await behavior.waitElement(
     "[id=" + constants.MAIN_LINKS_AND_IDS.contactUs.id + "]"

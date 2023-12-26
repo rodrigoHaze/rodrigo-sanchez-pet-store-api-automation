@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "^10.1.0",
+    "@slack/web-api": "^6.11.0",
     "exceljs": "^4.4.0",
     "python-shell": "^5.0.0"
   }
