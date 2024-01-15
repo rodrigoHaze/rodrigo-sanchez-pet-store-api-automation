@@ -3,7 +3,15 @@ import { basePage } from "../hooks/basepage";
 const ExcelJS = require("exceljs");
 
 export class BasicBehavior {
-  constructor() {}
+  changeTab(pageIndex: number, contextIndex?: number) {
+    let context = basePage.browser.contexts()[0];
+    let pages = context.pages();
+    if (pageIndex < pages.length && pageIndex >= 0) {
+      basePage.page = pages[pageIndex];
+    } else {
+      console.log("Out Of Limits");
+    }
+  }
   async waitElement(selector: string) {
     await basePage.page.waitForSelector(selector);
   }

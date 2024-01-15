@@ -2,12 +2,14 @@ import { After, Before, BeforeAll } from "@cucumber/cucumber";
 import { addRowExcel, cleanErrorMessage, createExcel } from "../utils/utils";
 import constants from "../tests/constants/constants";
 import { basePage } from "./basepage";
-import { Browser, Page, chromium } from "@playwright/test";
+import { Browser, BrowserContext, Page, chromium } from "@playwright/test";
 import {
   sendMessage,
   sendMessageByWebhook,
   uploadFile,
 } from "../utils/SlackIntegration";
+let browser: Browser;
+let page: Page;
 BeforeAll({ timeout: 100000 }, async function () {
   await uploadFile(
     "#istqb",
@@ -36,8 +38,7 @@ BeforeAll({ timeout: 100000 }, async function () {
     basePage.page.reload();
   }
 });
-let browser: Browser;
-let page: Page;
+
 After(async function (scenario: any) {
   const steps = scenario.pickle.steps.map((step: any) => {
     return step.text;

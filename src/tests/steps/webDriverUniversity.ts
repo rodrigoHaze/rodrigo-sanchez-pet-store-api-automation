@@ -1,6 +1,8 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { BasicBehavior } from "../../utils/utils";
 import constants from "../constants/constants";
+import { basePage } from "../../hooks/basepage";
+//import { BasePage, basePage } from "../../hooks/basepage";
 ////1) Scenario:  CONTACT US Form # src/tests/features/webDriverUniversity.feature:4
 const behavior = new BasicBehavior();
 
@@ -14,13 +16,68 @@ Given("the user opens the CONTACT US form", async function () {
 });
 
 When("the user enters valid information", async function () {
-  // Write code here that turns the phrase above into concrete actions
-  return "pending";
+  try {
+    console.log("iniciii");
+    await behavior.waitElement(
+      "input[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName
+          .firstName +
+        "]"
+    );
+    console.log("000");
+  } catch (error: any) {
+    behavior.changeTab(1);
+    console.log("1");
+    const element = await basePage.page.waitForSelector(
+      "input[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName
+          .firstName +
+        "]"
+    );
+    console.log("2");
+    await element.click();
+    element.fill("Rodrigo Alejandro");
+    console.log("3");
+    await behavior.writeTextField(
+      "[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName
+          .firstName +
+        "]",
+      "Rodrigo Alejandro"
+    );
+    console.log("4");
+    await behavior.writeTextField(
+      "input[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName
+          .lastName +
+        "]",
+      "Sanchez Toro"
+    );
+    console.log("5");
+    await behavior.writeTextField(
+      "input[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName.email +
+        "]",
+      "rodrigo@family.com"
+    );
+    console.log("6");
+    await behavior.writeTextField(
+      "input[name=" +
+        constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.byName
+          .message +
+        "]",
+      "This is a test proyect message"
+    );
+    console.log("7");
+  }
 });
 
 Then("the form is submitted successfully", async function () {
-  // Write code here that turns the phrase above into concrete actions
-  return "pending";
+  await behavior.clickElement(
+    "[type=" +
+      constants.MAIN_LINKS_AND_IDS.contactUs.selectorContainer.type.submit +
+      "]"
+  );
 });
 
 //2) Scenario: LOGIN PORTAL # src/tests/features/webDriverUniversity.feature:8
